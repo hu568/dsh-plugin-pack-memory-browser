@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "dsh-plugin-pack-memory-browser",
+  "name": "DSH 插件包：记忆 + 浏览器",
+  "version": "1.1.0",
+  "description": "两个互补的 DSH 插件：角色设定与长期记忆（persona-memory），浏览器操作与实时投屏面板（browser-use）。安装规格指向各自的 GitHub 仓库，同时随包附带可离线安装的 tarball。",
+  "license": "MIT",
+  "plugins": [
+    {
+      "id": "dsh-persona-memory",
+      "name": "DSH 角色设定与长期记忆",
+      "kind": "plugin",
+      "spec": "github:hu568/dsh-plugin-persona-memory",
+      "repository": "https://github.com/hu568/dsh-plugin-persona-memory",
+      "description": "角色库（persona.yml + SOUL.md + USER.md）、全局/项目两级记忆与长期日志，注册在宿主组合层，对所有 agent 预设生效，附右侧栏管理面板。"
+    },
+    {
+      "id": "dsh-browser-use",
+      "name": "DSH 浏览器操作",
+      "kind": "plugin",
+      "spec": "github:hu568/dsh-plugin-browser-use",
+      "repository": "https://github.com/hu568/dsh-plugin-browser-use",
+      "description": "ARIA 快照优先的导航/点击/输入/截图/多标签工具 + 右侧栏实时投屏面板。随包附带补齐的 cordis.patch.yml 装配层。"
+    }
+  ]
+}

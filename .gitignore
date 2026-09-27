@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+
+# plugins/*.tgz 是本包的分发载荷，必须提交
+!plugins/
+!plugins/*.tgz
