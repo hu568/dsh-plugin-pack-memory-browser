@@ -153,6 +153,27 @@ for (const { pluginId, path, manifest: pkg } of tarballs) {
   if (pkg.license !== 'MIT') fail(`${pluginId}: ${file} 的 license 应为 MIT，实际为 ${JSON.stringify(pkg.license)}`)
   if (pkg.private === true) fail(`${pluginId}: ${file} 仍标记 private: true`)
   if (pkg.dsh === undefined) fail(`${pluginId}: ${file} 缺少 dsh 段（不是 DSH 插件包）`)
+
+  // persona-memory 的宿主提示词段落必须带 interpolate:false。
+  // 否则记忆/日志里只要出现一句 `{{变量}}`，宿主 interpolate() 就会抛
+  // malformed prompt variable reference —— 整个 turn 直接失败（0.1.1 的真实故障）。
+  // 这里用「清单里的 spec 版本 vs 随包 tarball 内实际源码」双检，防止再发出坏包。
+  if (pluginId === 'dsh-persona-memory') {
+    let host
+    try {
+      host = readTarEntry(await readFile(path), 'package/lib/index.js')
+    } catch (error) {
+      fail(`${pluginId}: 无法读取 tarball ${file} 内的 lib/index.js: ${error.message}`)
+    }
+    if (host !== undefined) {
+      if (!host.includes('interpolate: false')) {
+        fail(`${pluginId}: ${file} 的 lib/index.js 缺少 "interpolate: false" —— 含 {{变量}} 的记忆会让整个 turn 崩溃`)
+      }
+      if (!host.includes('subagentProjectOnly')) {
+        fail(`${pluginId}: ${file} 的 lib/index.js 缺少子代理作用域（subagentProjectOnly）`)
+      }
+    }
+  }
   notes.push(`  ${pluginId}: ${pkg.name}@${pkg.version} (${file})`)
 }
 

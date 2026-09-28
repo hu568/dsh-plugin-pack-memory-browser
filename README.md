@@ -43,12 +43,17 @@ dsh plugin --profile <profile> add github:hu568/dsh-plugin-browser-use
 
 ```powershell
 # 先取本包目录的绝对路径（相对路径会被 pnpm 按 profile 目录解析，指到错的位置）
-dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-persona-memory-0.1.1.tgz"
+dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-persona-memory-0.1.2.tgz"
 dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-browser-use-0.1.1.tgz"
 ```
 
 安装后这两个包会被追加进 profile 的 `dsh.profile.bundles`，各自的 `cordis.patch.yml`
-作为组合包层生效；profile 在运行中通常即时生效，否则重启一次。
+作为组合包层生效。**配置层**（`cordis.yml` / `cordis.patch.yml`）通常即时生效；
+但插件**代码**（`lib/*.js`）改动必须**完全重启 DSH** —— HMR 默认不监听
+`node_modules`（`root: []` + `ignored: ["**/node_modules", …]`），且 Node 的 ESM
+`loadCache` 会按 URL 缓存已 import 的模块，仅「禁用再启用」不会重读磁盘。
+（`persona-memory` 0.1.1 → 0.1.2 修的就是这个：0.1.1 的提示词段落未关宿主插值，
+记忆里出现 `{{变量}}` 会让整个 turn 崩。）
 
 验证：
 

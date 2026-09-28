@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "dsh-plugin-pack-memory-browser",
   "name": "DSH 插件包：记忆 + 浏览器",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "两个互补的 DSH 插件：角色设定与长期记忆（persona-memory），浏览器操作与实时投屏面板（browser-use）。安装规格指向各自的 GitHub 仓库，同时随包附带可离线安装的 tarball。",
   "license": "MIT",
   "plugins": [
