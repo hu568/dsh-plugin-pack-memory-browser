@@ -43,8 +43,8 @@ dsh plugin --profile <profile> add github:hu568/dsh-plugin-browser-use
 
 ```powershell
 # 先取本包目录的绝对路径（相对路径会被 pnpm 按 profile 目录解析，指到错的位置）
-dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-persona-memory-0.1.2.tgz"
-dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-browser-use-0.1.1.tgz"
+dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-persona-memory-0.2.0.tgz"
+dsh plugin --profile <profile> add "D:\path\to\dsh-plugin-pack-memory-browser\plugins\dsh-external-dsh-browser-use-0.1.2.tgz"
 ```
 
 安装后这两个包会被追加进 profile 的 `dsh.profile.bundles`，各自的 `cordis.patch.yml`
